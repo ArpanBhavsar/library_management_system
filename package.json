@@ -1,0 +1,24 @@
+{
+  "name": "library_management_system",
+  "version": "1.0.0",
+  "description": "Simple Library Management System o Node.js, MongoDB and EJS.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "ejs",
+    "library_management_system"
+  ],
+  "author": "Arpan Bhavsar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0",
+    "path": "^0.12.7"
+  }
+}
