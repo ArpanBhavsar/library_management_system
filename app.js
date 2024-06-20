@@ -31,6 +31,14 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/books", (req, res) => {
+  db.collection("books").find().toArray()
+  .then(books => {
+    res.render("index", {books});
+  })
+  .catch(err => res.status(500).json({error: "An error occurred while retrieving books", detail: err}));
+});
+
 app.get("/books/new", (req, res) => {
   res.render("add_book");
 });
