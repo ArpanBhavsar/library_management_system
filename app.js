@@ -2,11 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const mongodb = require("mongodb");
+const methodOverride = require("method-override");
 require("dotenv").config();
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.set("view engine", "ejs");
 
 const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
@@ -26,6 +29,22 @@ mongodb.MongoClient.connect(mongoURI)
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.get("/books/new", (req, res) => {
+  res.render("add_book");
+});
+
+app.post("/books", (req, res) => {
+  const book = {
+    title: req.body.title,
+    author: req.body.author,
+    publishedDate: new Date(req.body.publishedDate)
+  };
+
+  db.collection("books").insertOne(book)
+  .then(result => res.send(result))
+  .catch(err => res.status(500).json({error: "An error occurred while inserting book", detail: err}));
 });
 
 app.listen(port, () => {
